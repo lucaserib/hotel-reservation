@@ -1,28 +1,56 @@
 import { randomUUID } from "node:crypto";
 import Room from "../../employee/entitites/room";
+import Entity from "../../../core/entities/entity";
+import Identity from "../../../core/entities/indentity";
+import { Optional } from "../../../core/types/optional";
+import Email from "../../shared/value-objects/email";
+import AgregateRoot from "../../../core/entities/agregate-root";
 
 type BookingType = {
   room: Room;
   days: number;
   customer: string;
-  email: string;
+  email: Email;
   isActive: boolean;
 };
 
-export default class Booking {
-  private id: string;
-  private room: Room;
-  private days: number;
-  private customer: string;
-  private email: string;
-  private isActive: boolean;
+export default class Booking extends AgregateRoot<BookingType> {
+  static create(data: Optional<BookingType, "isActive">, id?: Identity) {
+    return new Booking(
+      {
+        ...data,
+        isActive: data.isActive ?? true,
+      },
+      id
+    );
+  }
 
-  constructor(data: BookingType, id?: string) {
-    this.room = data.room;
-    this.days = data.days;
-    this.customer = data.customer;
-    this.email = data.email;
-    this.isActive = data.isActive;
-    this.id = id ?? randomUUID();
+  get room() {
+    return this.attributes.room;
+  }
+  get days() {
+    return this.attributes.days;
+  }
+  get customer() {
+    return this.attributes.customer;
+  }
+  get email() {
+    return this.attributes.email;
+  }
+  get isActive() {
+    return this.attributes.isActive;
+  }
+
+  set days(value: number) {
+    this.attributes.days = value;
+  }
+  set customer(value: string) {
+    this.attributes.customer = value;
+  }
+  set email(value: Email) {
+    this.attributes.email = value;
+  }
+  set isActive(value: boolean) {
+    this.attributes.isActive = value;
   }
 }
