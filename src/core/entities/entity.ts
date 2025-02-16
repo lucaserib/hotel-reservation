@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import Identity from "./indentity";
 
 export default abstract class Entity<T> {
