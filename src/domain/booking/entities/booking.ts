@@ -39,15 +39,6 @@ export default class Booking extends AgregateRoot<BookingType> {
     return this.attributes.isActive;
   }
 
-  set days(value: number) {
-    this.attributes.days = value;
-  }
-  set customer(value: string) {
-    this.attributes.customer = value;
-  }
-  set email(value: Email) {
-    this.attributes.email = value;
-  }
   set isActive(value: boolean) {
     this.attributes.isActive = value;
   }

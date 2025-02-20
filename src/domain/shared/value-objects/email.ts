@@ -7,9 +7,8 @@ export default class Email {
     return new Email(email);
   }
 
-  validade() {
-    return !!this.value
-      .toLowerCase()
-      .match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i);
+  validate() {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(this.value);
   }
 }

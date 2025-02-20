@@ -6,4 +6,6 @@ export abstract class RoomRepository {
   abstract findMany(): Promise<Room[]>;
 
   abstract findById(id: string): Promise<Room | null>;
+
+  abstract save(room: Room): Promise<void>;
 }

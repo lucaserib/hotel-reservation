@@ -10,9 +10,7 @@ export class GetRoomUseCase {
 
   async handle({ id }: Response) {
     const rooms = await this.roomRepository.findById(id);
-    if (!id) {
-      return null;
-    }
+
     return rooms;
   }
 }
