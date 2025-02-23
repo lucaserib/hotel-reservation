@@ -9,7 +9,7 @@ import { CreateBookingUseCase } from "./create-booking";
 let roomRepository: InMemoryRoomRepository;
 let bookingRepository: InMemoryBookingRepository;
 let useCase: CreateBookingUseCase;
-describe("Room Booking", () => {
+describe("Creating a Booking", () => {
   beforeEach(() => {
     roomRepository = new InMemoryRoomRepository();
     bookingRepository = new InMemoryBookingRepository();
