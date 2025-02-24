@@ -23,4 +23,9 @@ describe("Room List", () => {
 
     expect(response).toHaveLength(1);
   });
+  test("should list an empty array", async () => {
+    const response = await useCase.handle();
+
+    expect(response).toHaveLength(0);
+  });
 });
