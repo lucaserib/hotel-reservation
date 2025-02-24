@@ -1,7 +1,6 @@
 import Employee from "../../domain/employee/entitites/employee";
 import Room from "../../domain/employee/entitites/room";
 import { EmployeeRepository } from "../../domain/employee/repositories/employee-repository";
-import { RoomRepository } from "../../domain/employee/repositories/room-repository";
 
 export class InMemoryEmployeeRepository implements EmployeeRepository {
   items: Employee[] = [];

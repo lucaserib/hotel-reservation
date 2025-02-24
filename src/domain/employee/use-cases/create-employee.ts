@@ -18,7 +18,7 @@ export default class CreateEmployeeUseCase {
 
     const emailEmployee = Email.create(email);
 
-    if (!emailEmployee.validate) return null;
+    if (!emailEmployee.validate()) return null;
 
     const employee = Employee.create({ name, email: emailEmployee, password });
 
