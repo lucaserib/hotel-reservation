@@ -28,12 +28,6 @@ export class InMemoryEmployeeRepository implements EmployeeRepository {
     return employee;
   }
 
-  async save(employee: Employee) {
-    const itemIndex = this.items.findIndex((item) => item.id === employee.id);
-
-    this.items[itemIndex] = employee;
-  }
-
   async delete(id: string) {
     const itemIndex = this.items.findIndex((item) => item.id.toString() === id);
 

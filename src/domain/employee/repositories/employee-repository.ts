@@ -9,7 +9,5 @@ export abstract class EmployeeRepository {
 
   abstract findByEmail(email: string): Promise<Employee | null>;
 
-  abstract save(employee: Employee): Promise<void>;
-
   abstract delete(id: string): Promise<void>;
 }
