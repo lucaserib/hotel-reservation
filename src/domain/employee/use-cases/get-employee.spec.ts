@@ -23,7 +23,8 @@ describe("Employee details", () => {
       id: employee.id.toString(),
     });
 
-    expect(response!.name).toEqual("Presidential Suite");
+    expect(response.isRight()).toBe(true);
+    expect(response!.value.name).toEqual("Presidential Suite");
   });
 
   test("should not return a employee whit invalid id", async () => {
@@ -31,6 +32,6 @@ describe("Employee details", () => {
       id: "1",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

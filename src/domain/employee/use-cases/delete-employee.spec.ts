@@ -25,10 +25,11 @@ describe("Delete employee", () => {
   test("Should delete a employee", async () => {
     expect(employeeRepository.items).toHaveLength(1);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: "1",
     });
 
+    expect(response.isRight()).toBe(true);
     expect(employeeRepository.items).toHaveLength(0);
   });
 
@@ -37,6 +38,6 @@ describe("Delete employee", () => {
       id: "10",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

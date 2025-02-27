@@ -6,8 +6,6 @@ import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
 import { DeleteRoomUsecase } from "./delete-room";
 import Booking from "../../booking/entities/booking";
-import { NotAllowed } from "../../../core/errors/custom-errors/not-allowed";
-import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 
 let bookingRepository: InMemoryBookingRepository;
 let roomRepository: InMemoryRoomRepository;

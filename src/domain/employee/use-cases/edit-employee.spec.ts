@@ -2,9 +2,7 @@ import Identity from "../../../core/entities/indentity";
 import { InMemoryEmployeeRepository } from "../../../test/repositories/in-memory-employee-repository";
 import { HashSimulator } from "../../../test/services/hashSimulator";
 import Email from "../../shared/value-objects/email";
-import Money from "../../shared/value-objects/money";
 import Employee from "../entitites/employee";
-import { HashRepository } from "../services/hash-repository";
 import { EditEmployeeRepository } from "./edit-employee";
 
 let employeeRepository: InMemoryEmployeeRepository;
@@ -26,7 +24,7 @@ describe("Employee Edit", () => {
 
     employeeRepository.items.push(employee);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: employee.id.toString(),
       name: "Lucas Emanuel",
       email: "lucasemanuel@gmail.com",
@@ -35,6 +33,7 @@ describe("Employee Edit", () => {
 
     const hashedPassword = await hashRepository.hash("abc123");
 
+    expect(response.isRight()).toBe(true);
     expect(employeeRepository.items[0].name).toEqual("Lucas Emanuel");
     expect(employeeRepository.items[0].email.value).toEqual(
       "lucasemanuel@gmail.com"
@@ -50,7 +49,7 @@ describe("Employee Edit", () => {
       password: "123",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
   test("Should not edit a employee with invalid email format", async () => {
     const luana = await Employee.create(
@@ -70,7 +69,7 @@ describe("Employee Edit", () => {
       password: "123",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
   test("Should not edit a employee with an email that already exists to another employee", async () => {
     const luana = await Employee.create(
@@ -99,6 +98,6 @@ describe("Employee Edit", () => {
       password: "123",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

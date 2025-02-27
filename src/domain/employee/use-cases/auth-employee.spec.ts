@@ -37,7 +37,8 @@ describe("Employee Authenticate", () => {
       password: "abc123",
     });
 
-    expect(response).toEqual({
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toEqual({
       token: expect.any(String),
       employee: expect.any(Employee),
     });
@@ -59,7 +60,7 @@ describe("Employee Authenticate", () => {
       password: "abc123",
     });
 
-    expect(response).toBe(null);
+    expect(response.isLeft()).toBe(true);
   });
 
   test("Should not authenticate a employee with invalid credentials", async () => {
@@ -78,6 +79,6 @@ describe("Employee Authenticate", () => {
       password: "12345",
     });
 
-    expect(response).toBe(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

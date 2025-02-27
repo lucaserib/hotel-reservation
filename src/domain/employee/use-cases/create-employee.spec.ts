@@ -26,10 +26,9 @@ describe("Employee Creation", () => {
 
     const hashPassword = await hashRepository.hash("123abc");
 
+    expect(employee.isRight()).toBe(true);
     expect(employeeRepository.items[0].id).toBeInstanceOf(Identity);
-    expect(employeeRepository.items[0].id.toString()).toEqual(
-      employee?.id.toString()
-    );
+    expect(employeeRepository.items[0]).toEqual(employee.value);
     expect(employeeRepository.items[0].email.value).toEqual("Lucas@gmail.com");
     expect(employeeRepository.items[0].name).toEqual("Lucas Emanuel");
     expect(employeeRepository.items[0].password).toEqual(hashPassword);
@@ -42,7 +41,7 @@ describe("Employee Creation", () => {
       password: "123abc",
     });
 
-    expect(response).toBe(null);
+    expect(response.isLeft()).toBe(true);
   });
   test("should not create a employee with email already registered", async () => {
     const employee = await Employee.create({
@@ -59,6 +58,6 @@ describe("Employee Creation", () => {
       password: "123abc",
     });
 
-    expect(response).toBe(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

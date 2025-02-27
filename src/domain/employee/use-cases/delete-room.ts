@@ -1,4 +1,4 @@
-import { NotAllowed } from "../../../core/errors/custom-errors/not-allowed";
+import { NotAllowedError } from "../../../core/errors/custom-errors/not-allowed-error";
 import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 import { Either, left, right } from "../../../core/errors/either/either";
 import { BookingRepository } from "../../booking/repositories/booking-repository";
@@ -8,7 +8,7 @@ type Request = {
   id: string;
 };
 
-type Response = Either<NotFoundError | NotAllowed, boolean>;
+type Response = Either<NotFoundError | NotAllowedError, boolean>;
 
 export class DeleteRoomUsecase {
   constructor(
@@ -24,7 +24,7 @@ export class DeleteRoomUsecase {
       room.id.toString()
     );
 
-    if (bookingExists) return left(new NotAllowed());
+    if (bookingExists) return left(new NotAllowedError());
 
     await this.roomRepository.delete(id);
 

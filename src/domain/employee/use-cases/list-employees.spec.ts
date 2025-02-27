@@ -22,12 +22,14 @@ describe("Employee List", () => {
 
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(1);
+    expect(response.value).toHaveLength(1);
+    expect(response.isRight()).toBe(true);
   });
 
   test("should list an empty array", async () => {
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
+    expect(response.value).toHaveLength(0);
   });
 });
