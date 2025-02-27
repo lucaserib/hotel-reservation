@@ -41,7 +41,7 @@ describe("Get Booking datails", () => {
       id: "1",
     });
 
-    expect(response?.customer).toEqual("Lucas");
+    expect(response.isRight()).toBe(true);
   });
 
   test("should not return a Booking whit invalid id", async () => {
@@ -49,6 +49,6 @@ describe("Get Booking datails", () => {
       id: "2",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

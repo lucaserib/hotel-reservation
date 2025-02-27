@@ -1,9 +1,14 @@
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
+import { Either, left, right } from "../../../core/errors/either/either";
 import { RoomRepository } from "../../employee/repositories/room-repository";
+import Booking from "../entities/booking";
 import { BookingRepository } from "../repositories/booking-repository";
 
 type Request = {
   bookingId: string;
 };
+
+type Response = Either<NotFoundError, Booking>;
 
 export class CancelBookingUseCase {
   constructor(
@@ -11,10 +16,10 @@ export class CancelBookingUseCase {
     private roomRepository: RoomRepository
   ) {}
 
-  async handle({ bookingId }: Request) {
+  async handle({ bookingId }: Request): Promise<Response> {
     const bookingExists = await this.bookingRepository.findById(bookingId);
 
-    if (!bookingExists) return null;
+    if (!bookingExists) return left(new NotFoundError());
 
     bookingExists.isActive = false;
 
@@ -26,6 +31,6 @@ export class CancelBookingUseCase {
 
     await this.roomRepository.save(room);
 
-    return bookingExists;
+    return right(bookingExists);
   }
 }

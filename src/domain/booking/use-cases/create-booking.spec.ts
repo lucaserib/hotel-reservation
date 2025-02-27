@@ -37,13 +37,14 @@ describe("Creating a Booking", () => {
     roomRepository.items.push(room);
   });
   test("should book a room", async () => {
-    await useCase.handle({
+    const response = await useCase.handle({
       customer: "Lucas",
       email: "Lucas@gmail.com",
       days: 3,
       roomId: "2",
     });
 
+    expect(response.isRight()).toBe(true);
     expect(bookingRepository.items[0].customer).toEqual("Lucas");
     expect(bookingRepository.items[0].room.isAvaliable).toBe(false);
     expect(bookingRepository.items[0].isActive).toBe(true);
@@ -59,7 +60,7 @@ describe("Creating a Booking", () => {
       roomId: "10",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
   test("should not creating a book on a unavaliable room", async () => {
     const response = await useCase.handle({
@@ -69,7 +70,7 @@ describe("Creating a Booking", () => {
       roomId: "5",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
   test("should not creating a book whit an invalid email", async () => {
     const response = await useCase.handle({
@@ -79,6 +80,6 @@ describe("Creating a Booking", () => {
       roomId: "2",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

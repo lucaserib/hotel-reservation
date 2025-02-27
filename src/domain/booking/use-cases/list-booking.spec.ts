@@ -1,7 +1,6 @@
 import { InMemoryBookingRepository } from "../../../test/repositories/in-memory-booking-repository";
 import { InMemoryRoomRepository } from "../../../test/repositories/in-memory-room-repository";
 import Room from "../../employee/entitites/room";
-import { ListRoomsUseCase } from "../../employee/use-cases/list-rooms";
 import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
 import Booking from "../entities/booking";
@@ -36,13 +35,15 @@ describe("Booking List", () => {
 
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(1);
-    expect(response).toBeInstanceOf(Array);
+    expect(response.value).toHaveLength(1);
+    expect(response.value).toBeInstanceOf(Array);
+    expect(response.isRight()).toBe(true);
   });
 
   test("Should return an empty array", async () => {
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(0);
+    expect(response.value).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
   });
 });

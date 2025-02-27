@@ -38,10 +38,11 @@ describe("Cancel booking", () => {
 
     bookingRepository.items.push(booking);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       bookingId: "1",
     });
 
+    expect(response.isRight()).toBe(true);
     expect(bookingRepository.items[0].isActive).toBe(false);
     expect(roomRepository.items[0].isAvaliable).toBe(true);
   });
@@ -51,6 +52,6 @@ describe("Cancel booking", () => {
       bookingId: "2",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });
