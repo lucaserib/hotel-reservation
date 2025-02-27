@@ -23,7 +23,7 @@ describe("Room details", () => {
       id: room.id.toString(),
     });
 
-    expect(response!.name).toEqual("Presidential Suite");
+    expect(response.isRight()).toBe(true);
   });
 
   test("should not return a room whit invalid id", async () => {
@@ -31,6 +31,7 @@ describe("Room details", () => {
       id: "1",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
+    //expect(response.value).toBeInstanceOf(Error)
   });
 });

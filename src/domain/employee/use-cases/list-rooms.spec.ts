@@ -1,7 +1,7 @@
 import { InMemoryRoomRepository } from "../../../test/repositories/in-memory-room-repository";
 import Money from "../../shared/value-objects/money";
 import Room from "../entitites/room";
-import { ListRoomsUseCase } from "./list-room";
+import { ListRoomsUseCase } from "./list-rooms";
 
 let roomRepository: InMemoryRoomRepository;
 let useCase: ListRoomsUseCase;
@@ -21,11 +21,13 @@ describe("Room List", () => {
 
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(1);
+    expect(response.value).toHaveLength(1);
+    expect(response.isRight()).toBe(true);
   });
   test("should list an empty array", async () => {
     const response = await useCase.handle();
 
-    expect(response).toHaveLength(0);
+    expect(response.value).toHaveLength(0);
+    expect(response.isRight()).toBe(true);
   });
 });

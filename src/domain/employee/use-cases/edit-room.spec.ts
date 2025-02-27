@@ -20,7 +20,7 @@ describe("Room Edit", () => {
 
     roomRepository.items.push(room);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: room.id.toString(),
       name: "Suite",
       price: 200000,
@@ -32,6 +32,7 @@ describe("Room Edit", () => {
       isAvaliable: room.isAvaliable,
     });
 
+    expect(response.isRight()).toBe(true);
     expect(roomRepository.items[0].name).toEqual("Suite");
     expect(roomRepository.items[0].price.value).toEqual(200000);
   });
@@ -49,6 +50,6 @@ describe("Room Edit", () => {
       isAvaliable: true,
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

@@ -1,7 +1,7 @@
 import { InMemoryBookingRepository } from "../../../test/repositories/in-memory-booking-repository";
 import { InMemoryRoomRepository } from "../../../test/repositories/in-memory-room-repository";
 import Room from "../../employee/entitites/room";
-import { ListRoomsUseCase } from "../../employee/use-cases/list-room";
+import { ListRoomsUseCase } from "../../employee/use-cases/list-rooms";
 import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
 import Booking from "../entities/booking";

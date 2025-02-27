@@ -1,7 +1,7 @@
 import { RoomRepository } from "../../employee/repositories/room-repository";
 import { BookingRepository } from "../repositories/booking-repository";
 
-type Response = {
+type Request = {
   bookingId: string;
 };
 
@@ -11,7 +11,7 @@ export class CancelBookingUseCase {
     private roomRepository: RoomRepository
   ) {}
 
-  async handle({ bookingId }: Response) {
+  async handle({ bookingId }: Request) {
     const bookingExists = await this.bookingRepository.findById(bookingId);
 
     if (!bookingExists) return null;

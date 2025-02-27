@@ -6,6 +6,8 @@ import Email from "../../shared/value-objects/email";
 import Money from "../../shared/value-objects/money";
 import { DeleteRoomUsecase } from "./delete-room";
 import Booking from "../../booking/entities/booking";
+import { NotAllowed } from "../../../core/errors/custom-errors/not-allowed";
+import { NotFoundError } from "../../../core/errors/custom-errors/not-found-error";
 
 let bookingRepository: InMemoryBookingRepository;
 let roomRepository: InMemoryRoomRepository;
@@ -52,10 +54,11 @@ describe("Delete room", () => {
   test("Should delete a room", async () => {
     expect(roomRepository.items).toHaveLength(2);
 
-    await useCase.handle({
+    const response = await useCase.handle({
       id: "1",
     });
 
+    expect(response.isRight()).toBe(true);
     expect(roomRepository.items).toHaveLength(1);
   });
 
@@ -64,7 +67,7 @@ describe("Delete room", () => {
       id: "2",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 
   test("Should not delete a room with an invalid id", async () => {
@@ -72,6 +75,6 @@ describe("Delete room", () => {
       id: "10",
     });
 
-    expect(response).toEqual(null);
+    expect(response.isLeft()).toBe(true);
   });
 });

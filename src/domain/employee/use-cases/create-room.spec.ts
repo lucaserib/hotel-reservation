@@ -16,8 +16,11 @@ describe("Room Creation", () => {
       image: "room.png",
     });
 
+    expect(room.isRight()).toBe(true);
     expect(roomRepository.items[0].id).toBeInstanceOf(Identity);
-    expect(roomRepository.items[0].id.toString()).toEqual(room.id.toString());
+    expect(roomRepository.items[0].id.toString()).toEqual(
+      room.value?.id.toString()
+    );
     expect(roomRepository.items[0].price.formattedPriceBRL()).toEqual(
       "R$\u{a0}1.200,00"
     );

@@ -1,14 +1,13 @@
-import Identity from "../../../core/entities/indentity";
 import { EmployeeRepository } from "../repositories/employee-repository";
 
-type Response = {
+type Request = {
   id: string;
 };
 
 export class GetEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository) {}
 
-  async handle({ id }: Response) {
+  async handle({ id }: Request) {
     const employees = await this.employeeRepository.findById(id);
 
     if (!employees) return null;
